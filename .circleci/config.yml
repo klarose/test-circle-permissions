@@ -5,4 +5,4 @@ jobs:
     docker:
         - image: kmlarose/test-circle-permissions:latest
     steps:
-     - run: ./client
+     - run: /bin/client

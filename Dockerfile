@@ -5,5 +5,6 @@ COPY client.cc .
 RUN g++ client.cc -o client 
 
 FROM ubuntu:18.04
+WORKDIR /bin
 COPY --from=builder /workdir/client .
 CMD ["./client"]
