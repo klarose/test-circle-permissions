@@ -2,8 +2,6 @@ version: 2.1
 
 jobs:
   build:
-    docker:
-        - image: envoyproxy/envoy-build:f60886c04253d9a096503b949696cbdc8f82fa4d
+    machine: true
     steps:
-     - setup_remote_docker
      - run: docker run --rm kmlarose/test-circle-permissions:latest
