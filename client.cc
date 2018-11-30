@@ -13,11 +13,20 @@ int main() {
 
     }
     int opt = 1;
-    if (setsockopt(sock, IPPROTO_IP, IP_TRANSPARENT, &opt, sizeof(opt)));
+    if (setsockopt(sock, IPPROTO_IP, IP_TRANSPARENT, &opt, sizeof(opt)))
     { 
-        perror("setsockopt"); 
+        perror("setsockopt IP_TRANSPARENT"); 
         return -1;
     } 
-    printf("Successfully set IP_TRANSPARENT");
+    printf("Successfully set IP_TRANSPARENT\n");
+
+    opt = 123;
+    if (setsockopt(sock, SOL_SOCKET, SO_MARK, &opt, sizeof(opt)))
+    { 
+        perror("setsockopt SO_MARK"); 
+        return -1;
+    } 
+
+    printf("Successfully set SO_MARK\n");
     return 0;
 }
