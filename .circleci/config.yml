@@ -1,7 +1,24 @@
 version: 2.1
+executors:
+  ubuntu-build:
+    description: "A regular build executor based on ubuntu image"
+    docker:
+      - image: envoyproxy/envoy-build:f60886c04253d9a096503b949696cbdc8f82fa4d
+    resource_class: xlarge
+    working_directory: /source
 
 jobs:
   build:
-    machine: true
+    executor: ubuntu-build
     steps:
+     - setup_remote_docker
+     - run:
+        name: Install Docker Client
+        command: |
+           set -x
+           VER="17.03.0-ce"
+           curl -L -o /tmp/docker-"$VER".tgz https://get.docker.com/builds/Linux/x86_64/docker-"$VER".tgz
+           tar -xz -C /tmp -f /tmp/docker-"$VER".tgz
+           mv /tmp/docker/* /usr/bin
+
      - run: docker run --cap-add NET_ADMIN --rm kmlarose/test-circle-permissions:latest
